@@ -1,7 +1,8 @@
 <?php
 $req = $_REQUEST["req"];
 $target = $_REQUEST["target"];
-$servername = "localhost";
+
+		$servername = "localhost";
 		$username = "root";
 		$password = "";
 		$dbname = "bodaping";
@@ -13,12 +14,14 @@ $servername = "localhost";
 		}
 		
 		if($req=="all"){
-			
+			$values = array();	
 			$sql = "SELECT * FROM `ping`";
 			$result = $conn->query($sql);	
-			while($row = $result->fetch_assoc()) {													
-				echo $row["myping"];	
+			while($row = $result->fetch_assoc()) {
+				array_push($values,$row["myping"]);		
 			}
+			//print_r($values);
+			echo json_encode($values);
 		}
 		if($req=="specific"){
 			
@@ -37,5 +40,5 @@ $servername = "localhost";
 			}
 		}
 		
-		
+	$conn->close();	
 ?>
