@@ -18,7 +18,7 @@ $target = $_REQUEST["target"];
 			$sql = "SELECT * FROM `ping`";
 			$result = $conn->query($sql);	
 			while($row = $result->fetch_assoc()) {
-				array_push($values,$row["myping"]);		
+				array_push($values,array($row["name"],$row["myping"]));		
 			}
 			//print_r($values);
 			echo json_encode($values);
@@ -31,6 +31,7 @@ $target = $_REQUEST["target"];
 				echo $row["myping"];	
 			}
 		}
+		
 		if($req=="count"){
 			
 			$sql = "SELECT COUNT(name) AS countname FROM ping";

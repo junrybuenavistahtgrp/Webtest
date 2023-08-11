@@ -1,6 +1,6 @@
 <html>
 <head>
-		<div id="div1">
+	<div id="div1">
 	
 	</div>
 	<script  type="text/javascript">
@@ -24,24 +24,36 @@
 		}
 	
 		function buildArea(){
-			var users = httpGet("server.php?req=all&target=");
+			const users = JSON.parse(httpGet("server.php?req=all&target="));			
 			console.log(users.length);
 			console.log(users);
 			
 			for (let i = 0; i < users.length; i++) {
+			
+				const para2 = document.createElement("p");
+				const node2 = document.createTextNode(users[i][0]);
+				
 				const para = document.createElement("textarea");
 				const node = document.createTextNode("This is new.");
+				para.setAttribute("id", users[i][0]);
+				
 				para.appendChild(node);
+				para2.appendChild(node2);
+					
 				const element = document.getElementById("div1");
 				const child = document.getElementById("p1");
+				element.insertBefore(para2, child);
 				element.insertBefore(para, child);
+				
+				setInterval(function() { getPing("specific",users[i][0],users[i][0])}, 1000);
+				
 			}
 		}
 		
 		
 		
 		buildArea();
-		//setInterval(function() { getPing("specific","Buenz","message"); }, 1000);
+		
 		//setInterval(function() { getPing("specific","Jhunta","message2"); }, 1000);
 	</script>
 </head>
