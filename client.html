@@ -1,7 +1,31 @@
 <html>
 <head>
-	<div id="div1">
 	
+
+<style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	/* Create three equal columns that floats next to each other */
+	.column {
+	  float: left;
+	  width: 33.33%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+</style>
+	
+
+	<div class="row" id="div1">
+		
 	</div>
 	<script  type="text/javascript">
 		function httpGet(theUrl) {
@@ -35,13 +59,18 @@
 			console.log(users.length);
 			console.log(users);
 			
-			for (let i = 0; i < users.length; i++) {
 			
-				const para2 = document.createElement("p");
+			for (let i = 0; i < users.length; i++) {
+				const newDiv = document.createElement("div");
+				
+				
+				newDiv.setAttribute("class","column");
+				
+				const para2 = document.createElement("h3");
 				const node2 = document.createTextNode(users[i][0]);
 				
 				const para = document.createElement("textarea");
-				const node = document.createTextNode("This is new.");
+				const node = document.createTextNode("Loading.");
 				para.setAttribute("id", users[i][0]);
 				//para.setAttribute("style", "color:red;");
 				para.setAttribute("rows", "16");
@@ -54,9 +83,14 @@
 				para2.appendChild(node2);
 					
 				const element = document.getElementById("div1");
+		
 				const child = document.getElementById("p1");
-				element.insertBefore(para2, child);
-				element.insertBefore(para, child);
+				
+				newDiv.appendChild(para2);
+				newDiv.appendChild(para);
+				
+				const currentDiv = document.getElementById("div1");
+				document.body.insertBefore(newDiv, currentDiv);
 				
 				setInterval(function() { getPing("specific",users[i][0],users[i][0])}, 1000);
 				
@@ -69,12 +103,11 @@
 		
 
 	</script>
+	
+	
 </head>
 <body>
 
-	
-	
-	
 
 
 </body>
