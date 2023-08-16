@@ -17,8 +17,15 @@
 			xmlhttp.onreadystatechange = function() {
 			  if (this.readyState == 4 && this.status == 200) {	
 				document.getElementById(field).innerHTML = this.responseText;
+				if(httpGet("server.php?req=status&target="+target)==1){
+					document.getElementById(field).setAttribute("style", "color:green;");
+				}else{
+					document.getElementById(field).setAttribute("style", "color:red;");
+				}
+				
 			  }
 			};
+			
 			xmlhttp.open("GET","server.php?req=" + req+"&target="+target, true);
 			xmlhttp.send();
 		}
@@ -36,6 +43,12 @@
 				const para = document.createElement("textarea");
 				const node = document.createTextNode("This is new.");
 				para.setAttribute("id", users[i][0]);
+				//para.setAttribute("style", "color:red;");
+				para.setAttribute("rows", "16");
+				para.setAttribute("cols", "60");
+				para.setAttribute("style", "resize:none;");
+			
+				
 				
 				para.appendChild(node);
 				para2.appendChild(node2);
@@ -54,15 +67,13 @@
 		
 		buildArea();
 		
-		//setInterval(function() { getPing("specific","Jhunta","message2"); }, 1000);
+
 	</script>
 </head>
 <body>
 
 	
-	<p>Suggestions: <span id="txtHint"></span></p>
-	<textarea id="message" rows="5" cols="30"></textarea>
-	<textarea id="message2" rows="5" cols="30"></textarea>
+	
 	
 
 

@@ -6,6 +6,7 @@ $target = $_REQUEST["target"];
 		$username = "root";
 		$password = "";
 		$dbname = "bodaping";
+		$today= date("Y-m-d");
 	
 		$conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -25,7 +26,7 @@ $target = $_REQUEST["target"];
 		}
 		if($req=="specific"){
 			
-			$sql = "SELECT * FROM `ping` where name = '".$target."'";
+			$sql = "SELECT * FROM `ping` where name = '".$target."' AND updated='".$today."'";
 			$result = $conn->query($sql);	
 			while($row = $result->fetch_assoc()) {													
 				echo $row["myping"];	
@@ -40,6 +41,18 @@ $target = $_REQUEST["target"];
 				echo $row["countname"];	
 			}
 		}
+		
+		if($req=="status"){
+			
+			$sql = "SELECT * FROM `ping` where name = '".$target."' AND updated='".$today."'";
+			$result = $conn->query($sql);	
+			while($row = $result->fetch_assoc()) {													
+				echo $row["status"];	
+			}
+		}
+		
+		
+		
 		
 	$conn->close();	
 ?>
