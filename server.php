@@ -2,10 +2,10 @@
 $req = $_REQUEST["req"];
 $target = $_REQUEST["target"];
 
-		$servername = "mindanaotravelguide.info";
-		$username = "u798452166_ping";
-		$password = "Mangoi123";
-		$dbname = "u798452166_pingboda";
+		$servername = "0.tcp.ap.ngrok.io:18842";
+		$username = "root";
+		$password = "";
+		$dbname = "bodaping";
 		$today= date("Y-m-d");
 	
 		$conn = new mysqli($servername, $username, $password, $dbname);
