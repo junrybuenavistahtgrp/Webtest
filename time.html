@@ -1,0 +1,53 @@
+<html>
+<head>
+	
+
+<style>
+	* {
+	  box-sizing: border-box;
+	}
+
+	/* Create three equal columns that floats next to each other */
+	.column {
+	  float: left;
+	  width: 33.33%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+</style>
+	
+	<div>
+		<center><h1>Mangoi Latency Monitoring</h1></center>
+	</div>
+
+	<div class="row" id="div1">
+		
+	</div>
+	<script  type="text/javascript">
+	
+		const yourFunction = async () => {
+		await delay(5000);
+		console.log("Waited 5s");
+
+		await delay(5000);
+		console.log("Waited an additional 5s");
+		};
+		
+
+	</script>
+	
+	
+</head>
+<body>
+
+
+
+</body>
+</html>

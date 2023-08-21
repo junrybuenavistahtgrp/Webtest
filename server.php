@@ -2,13 +2,16 @@
 $req = $_REQUEST["req"];
 $target = $_REQUEST["target"];
 
-		$servername = "0.tcp.ap.ngrok.io:18842";
-		$username = "root";
-		$password = "";
-		$dbname = "bodaping";
+		//$servername = "0.tcp.ap.ngrok.io:12873";
+		//$username = "root";
+		//$password = "";
+		//$dbname = "bodaping";
+
 		$today= date("Y-m-d");
+		
+		require_once('db_connect.php');
 	
-		$conn = new mysqli($servername, $username, $password, $dbname);
+		//$conn = new mysqli($servername, $username, $password, $dbname);
 
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
@@ -54,5 +57,5 @@ $target = $_REQUEST["target"];
 		
 		
 		
-	$conn->close();	
+	
 ?>
