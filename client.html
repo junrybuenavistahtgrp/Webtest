@@ -56,9 +56,9 @@
 			xmlhttp.open("GET","server.php?req=" + req+"&target="+target, true);
 			xmlhttp.send();
 		}
-		
+			let users;
 		function buildArea(){
-			const users = JSON.parse(httpGet("server.php?req=all&target="));			
+			users = JSON.parse(httpGet("server.php?req=all&target="));			
 			console.log(users.length);
 			console.log(users);
 		
@@ -96,21 +96,39 @@
 				document.body.insertBefore(newDiv, currentDiv);
 				
 				
-				//setInterval(function() { getPing("specific",users[i][0],users[i][0])}, 1000);
+				//setInterval(function() { getPing("specific",users[i][0],users[i][0])}, 5000);
 			}
 			
-			const delay = ms => new Promise(res => setTimeout(res, ms));
-			const yourFunction = async () => {
-			await delay(100);
-			getPing("specific",users[i][0],users[i][0]);
-		};
-		yourFunction();
 		}
-		
-		
-		
+			
 		buildArea();
 		
+		function clearArea(){	
+			for (let i = 0; i < users.length; i++) {
+				document.getElementById(users[i][0]).innerHTML = "";
+			}
+		}
+			const delay = ms => new Promise(res => setTimeout(res, ms));
+				const yourFunction = async () => {
+				while(true){
+					await delay(5000);
+					users2 = JSON.parse(httpGet("server.php?req=all2&target="));
+					clearArea();
+					for (let i = 0; i < users2.length; i++){
+						
+						document.getElementById(users2[i][0]).innerHTML = users2[i][1];
+						
+						if(users2[i][2]==1){
+							document.getElementById(users2[i][0]).setAttribute("style", "color:green;");
+						}else{
+							document.getElementById(users2[i][0]).setAttribute("style", "color:red;");
+						}
+					}						
+					
+					console.log("YEHHHHHHHHHHH");
+				}
+			};
+		yourFunction();
 		
 
 	</script>

@@ -8,7 +8,7 @@ $target = $_REQUEST["target"];
 		//$dbname = "bodaping";
 
 		$today= date("Y-m-d");
-		
+		//include 'connect_db.php';
 		require_once('db_connect.php');
 	
 		//$conn = new mysqli($servername, $username, $password, $dbname);
@@ -44,18 +44,16 @@ $target = $_REQUEST["target"];
 				echo $row["countname"];	
 			}
 		}
-		
-		if($req=="status"){
-			
-			$sql = "SELECT * FROM `ping` where name = '".$target."' AND updated='".$today."'";
+		if($req=="all2"){
+			$values = array();	
+			$sql = "SELECT * FROM `ping` where updated='".$today."'";
 			$result = $conn->query($sql);	
-			while($row = $result->fetch_assoc()) {													
-				echo $row["status"];	
+			while($row = $result->fetch_assoc()) {
+				array_push($values,array($row["name"],$row["myping"],$row["status"]));		
 			}
+			//print_r($values);
+			echo json_encode($values);
 		}
-		
-		
-		
-		
+		mysqli_close($conn);	
 	
 ?>
