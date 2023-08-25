@@ -82,7 +82,7 @@
 			
 		}
 			
-		//buildArea();
+		buildArea();
 		
 		function clearArea(){	
 			for (let i = 0; i < users.length; i++) {
@@ -99,7 +99,7 @@
 						users2="";
 						try {
 							users2 =  JSON.parse(httpGet("outbound.php?mac="+users[i][1]));
-						
+							
 							if(checkDate(users2[2])){
 							
 								document.getElementById(users[i][0]).innerHTML = formatPing(users2[0]);
@@ -121,7 +121,7 @@
 					
 				}
 			};
-		//yourFunction();
+		yourFunction();
 		function formatPing(Ping){
 			const myArray = Ping.split("nn");
 			let ret="";
@@ -137,26 +137,26 @@
 			return ret;
 		}
 		function checkDate(Datein){
+			var inn = Datein.split('YY');
 			//Datein.trim();
 			//Datein.replace(/[\r\n]/gm, '');
 			var todayDate = new Date().toISOString().slice(0, 10);
-			if(todayDate===Datein) return true
+		
+			if(todayDate===inn[0]&&checkTime((inn[1]))>-5) return true
 			else return false
 			
 		}
-		function checkTime(){
-			let time1 = '12:14';
-			let time2 = '12:15';
+		function checkTime(end){
+			var d = new Date();
+			d.setTime(d.getTime() + d.getTimezoneOffset() * 60 * 1000 /* convert to UTC */ + (/* UTC+8 */ 8) * 60 * 60 * 1000);
+			var start = d.getHours()+":"+d.getMinutes();
 			
+			var diff = start.split(':').map((item,index) => end.split(':')[index] - item).join(':')
+			var minute = diff.split(':');
+			var diff2 = (minute[0]*60) + (minute[1]*1);
 			
-			
-			if (time1 > time2) {
-			 alert('yes')
-			} else {
-			 alert('no')
-			}
+			return diff2;
 		}
-		checkTime();
 	</script>
 	
 	
