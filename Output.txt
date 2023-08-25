@@ -5,36 +5,27 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import java.sql.ResultSet;
-
+import java.net.*;
 import java.io.*;
+import java.util.StringTokenizer;
 
-public class pingTest {
+public class SendHttp {
 	Statement st;
 	Statement st2;
+	String Link="";
 	SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
-	public pingTest() {
+	public SendHttp() {
 		System.out.println(dformat.format(new Date()));
+		
+		//replaceSt("Reply from 180.150.230.195: bytes=32 time=231ms TTL=109");
 		setNgrok();
-		//setDataBaseConnection("0.tcp.ap.ngrok.io:11905");
 		updatePing();
 	}
-	public void setDataBaseConnection(String link) throws Exception {
-			System.out.println("Database connecting");	
-		 
-				Thread.sleep(1500);
-				Class.forName("com.mysql.jdbc.Driver");
-				System.out.println("jdbc:mysql://"+link+"/bodaping");
-				Connection con=DriverManager.getConnection(  
-				"jdbc:mysql://"+link+"/bodaping","root","");  	
-				 st=con.createStatement();			
-		
 	
-	}
 	public void setNgrok() {
 		while(true) {
 			System.out.println("Ngrok connecting");
@@ -52,15 +43,16 @@ public class pingTest {
 						 rs.next();
 						 ngrok = rs.getString("Link");	
 						 System.out.println(ngrok);
-						 setDataBaseConnection(ngrok);
+						 Link=ngrok;
 						 break;
 					 }catch(Exception ee) {System.out.println("Retrying");}
 				 }
 				 break;
-				//ffgg
+				//ff
 			   }catch(Exception e){e.printStackTrace();}
 		}
 	}	
+	
 	public void updatePing() {
 		 String ip = "180.150.230.195 -t";
 	        
@@ -74,6 +66,7 @@ public class pingTest {
 	            InputStreamReader(p.getInputStream()));
 	            String inputLine;
 	            while(true){
+	            	
 	            		String pingResult = "";
 	            		int timeout = 0; 
 			            for(int i = 0;i<17;++i) {
@@ -82,25 +75,60 @@ public class pingTest {
 				                System.out.println(inputLine);
 				                if(inputLine.equalsIgnoreCase("Request timed out.")) {
 				                	timeout++;
+				                	inputLine="timedout";
+				                }else {
+				                	inputLine = replaceSt(inputLine);
 				                }
-				                pingResult += inputLine+"\n";
+				                System.out.println(inputLine);
+				                pingResult += inputLine+"nn";
 			        	   	}
 			             }
+			            
 			            System.out.println("-------------"+timeout);
 			            try {
 			            System.out.println(getMac());
-			           
+			            //Link = "http://localhost";
 			            	if(timeout>2)
-			            	     st.execute("UPDATE `ping` SET myping = '"+pingResult+"', status = '2', updated = '"+dformat.format(new Date())+"' WHERE mac = '"+getMac()+"'");
-			            	else st.execute("UPDATE `ping` SET myping = '"+pingResult+"', status = '1', updated = '"+dformat.format(new Date())+"' WHERE mac = '"+getMac()+"'");
+			            		 sendPost(Link+"/Webtest/latency/serverhttp.php?ping="+pingResult+"&status=2&mac="+getMac());
+			            	else sendPost(Link+"/Webtest/latency/serverhttp.php?ping="+pingResult+"&status=1&mac="+getMac());
 			            }catch(Exception ee) {ee.printStackTrace();setNgrok();updatePing();}
 		            
 	            }    
-	            //in.close();
+	            ///in.close();
 
 	        } catch (IOException e) {
 	            System.out.println(e);
 	        }
+	}
+	public String replaceSt(String st) {
+		String ret="";
+		StringTokenizer tok = new StringTokenizer(st);
+		int i=0;
+		while(tok.hasMoreTokens()) {
+			
+			if(i==4) {
+				ret+=tok.nextToken()+"RR";
+			}else if(i==5) {
+				ret+=tok.nextToken();
+			}
+			else tok.nextToken();
+			i++;
+		}
+		return ret;
+	}
+	public void sendPost(String ss) {
+		try {
+			 	URL yahoo = new URL(ss);
+		        URLConnection yc = yahoo.openConnection();
+		        BufferedReader in = new BufferedReader(
+		                                new InputStreamReader(
+		                                yc.getInputStream()));
+		        String inputLine;
+	
+		        while ((inputLine = in.readLine()) != null) 
+		            System.out.println(inputLine);
+		        in.close();
+		}catch(Exception ee) {ee.printStackTrace();}
 	}
 	public String getMac() {
 		InetAddress ip;
@@ -134,6 +162,6 @@ public class pingTest {
 		return ret;
 	}
     public static void main(String[] args) {
-    	new pingTest();
+    	new SendHttp();
     }
 }
