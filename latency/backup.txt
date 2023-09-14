@@ -32,15 +32,7 @@
 	<div class="row" id="div1" style="background-color:f9d660;">
 		
 	</div>
-	
-	<div class="row" id="div2" style="background-color:f9d660;">
-		<br>
-		<center><h1>Internet problem logs</h1>
-		<textarea id="logs" rows="20" cols="200"></textarea>
-	</div>
-	
 	<script  type="text/javascript">
-	var logtext;
 		function httpGet(theUrl) {
 			let xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.open("GET", theUrl, false);
@@ -125,18 +117,6 @@
 											
 										}else{
 											document.getElementById(users3[i][3]).setAttribute("style", "color:red;background-color:f4f4f4;");
-											var d = new Date();
-											d.setTime(d.getTime() + d.getTimezoneOffset() * 60 * 1000 /* convert to UTC */ + (/* UTC+8 */ 8) * 60 * 60 * 1000);
-											var hour;
-											if(d.getHours()==0)hour=24;
-											else hour = d.getHours();
-											hour = hour+1;
-											hour = hour%12;
-											var start = hour+":"+d.getMinutes();
-											
-											
-											logtext= logtext+users3[i][3]+": having problem at "+start+"KT\n";
-											document.getElementById("logs").innerHTML = logtext;
 										}
 									}else{
 									        document.getElementById(users3[i][3]).setAttribute("style", "background-color:f9d660;");
@@ -188,8 +168,6 @@
 			
 			return diff2;
 		}
-		
-		
 	</script>
 	
 	
