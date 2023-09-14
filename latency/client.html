@@ -34,7 +34,7 @@
 	<div class="row" id="div2" style="background-color:f9d660;">
 		<br>
 		<center><h1>Internet problem logs</h1>
-		<textarea id="logs" rows="20" cols="200"></textarea>
+		<textarea id="logs" rows="20" cols="200" readonly></textarea>
 	</div>
 	
 		<div class="row" id="div1" style="background-color:f9d660;">
@@ -73,6 +73,8 @@
 				para.setAttribute("cols", "60");
 				para.setAttribute("style", "resize:none;");
 				para.setAttribute("style", "background-color:f9d660;");
+
+				
 			
 				
 				
@@ -88,7 +90,7 @@
 				
 				const currentDiv = document.getElementById("div1");
 				document.body.insertBefore(newDiv, currentDiv);
-				
+				document.getElementById(users[i][0]).readOnly= true;
 				
 				//setInterval(function() { getPing("specific",users[i][0],users[i][0])}, 5000);
 			}
