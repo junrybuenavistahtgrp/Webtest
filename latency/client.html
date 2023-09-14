@@ -35,12 +35,12 @@
 	
 	<div class="row" id="div2" style="background-color:f9d660;">
 		<br>
-		<center><h1>Internet problem logs</h1>
+		<center><h1>Internet problem logs</h1></center>
 		<textarea id="logs" rows="20" cols="200"></textarea>
 	</div>
 	
 	<script  type="text/javascript">
-	var logtext;
+	var logtext = "";
 		function httpGet(theUrl) {
 			let xmlHttpReq = new XMLHttpRequest();
 			xmlHttpReq.open("GET", theUrl, false);
