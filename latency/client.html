@@ -29,14 +29,16 @@
 		<br>
 	</div>
 
-	<div class="row" id="div1" style="background-color:f9d660;">
-		
-	</div>
+
 	
 	<div class="row" id="div2" style="background-color:f9d660;">
 		<br>
-		<center><h1>Internet problem logs</h1></center>
+		<center><h1>Internet problem logs</h1>
 		<textarea id="logs" rows="20" cols="200"></textarea>
+	</div>
+	
+		<div class="row" id="div1" style="background-color:f9d660;">
+		
 	</div>
 	
 	<script  type="text/javascript">
@@ -132,10 +134,11 @@
 											else hour = d.getHours();
 											hour = hour+1;
 											hour = hour%12;
-											var start = hour+":"+d.getMinutes();
+											
+											var start = hour+":"+d.getMinutes().toString().padStart(2, '0');
 											
 											
-											logtext= logtext+users3[i][3]+": having problem at "+start+"KT\n";
+											logtext= logtext+users3[i][3]+": having a connection problem at "+start+"KT\n";
 											document.getElementById("logs").innerHTML = logtext;
 										}
 									}else{
